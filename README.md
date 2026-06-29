@@ -1424,6 +1424,79 @@ Para cada método se reportan indicadores como:
 
 Esta comparación permite evaluar objetivamente las diferencias entre los distintos enfoques utilizados durante el proyecto.
 
+# 41. Interpretación mínima del resultado
+# 1. ¿Cuál fue la mejor asignación encontrada?
+
+La mejor asignación corresponde al emparejamiento uno-a-uno entre municipios y modalidades de vivienda que minimiza la energía del QUBO.
+Esto indica qué modalidad de vivienda se asigna prioritariamente a cada municipio dentro de la instancia 4×4.
+
+# 2. ¿Cuál fue su score en el dominio?
+
+El score corresponde a la suma de compatibilidades S
+ij
+	​
+
+ de la asignación encontrada.
+Un score más alto indica mejor alineación entre el nivel de rezago habitacional del municipio y la modalidad de vivienda asignada.
+
+# 3. ¿La asignación cumple todas las restricciones?
+
+Sí. La solución es factible si cumple que cada municipio recibe exactamente una modalidad y cada modalidad se asigna exactamente una vez.
+Esto equivale a un matching bipartito perfecto.
+
+# 4. ¿QAOA local observó el óptimo clásico?
+
+Se verifica comparando la mejor solución obtenida por QAOA con la solución óptima encontrada por búsqueda exhaustiva.
+En el caso ideal, ambas soluciones coinciden; si no, QAOA se considera una aproximación del óptimo.
+
+# 5. ¿Qué tan frecuente fue observar soluciones factibles?
+
+Se mide mediante la probabilidad de factibilidad, calculada como la proporción de muestras de QAOA que cumplen las restricciones del problema.
+Este valor indica qué tan bien el algoritmo respeta la estructura del matching bipartito.
+
+# 6. ¿Qué limitaciones tiene el modelo 4×4?
+
+El modelo es una simplificación del problema real:
+
+Solo incluye 4 municipios y 4 modalidades.
+No incorpora restricciones presupuestales reales.
+No modela dinámicas temporales ni políticas públicas completas.
+El score es una aproximación basada en normalización.
+# 7. ¿Qué cambiaría si el dataset creciera?
+
+Si el dataset aumenta:
+
+El espacio de búsqueda crece factorialmente.
+Aumenta el número de qubits necesarios.
+La simulación clásica deja de ser viable.
+Serían necesarias técnicas de reducción de dimensión o heurísticas más avanzadas.
+# 8. ¿Qué riesgos éticos existen y cómo se mitigaron?
+
+El principal riesgo es interpretar el modelo como una herramienta real de política pública.
+
+Otros riesgos:
+
+Sesgo en la construcción del score.
+Simplificación excesiva de un problema social complejo.
+Sobreinterpretación de resultados.
+
+Mitigación:
+
+Uso estrictamente académico.
+Documentación clara de supuestos.
+Separación entre simulación y decisiones reales.
+# 9. Si se usó hardware real, ¿cómo compara contra QAOA local?
+
+El hardware cuántico introduce ruido y errores que pueden degradar la calidad de las soluciones.
+QAOA local representa el caso ideal sin ruido, por lo que suele producir resultados más estables.
+
+# 10. Si se usó reparación clásica, ¿qué parte del resultado corresponde al postprocesamiento híbrido?
+
+La reparación clásica no forma parte del algoritmo cuántico.
+Se trata de un postprocesamiento que proyecta soluciones no factibles hacia soluciones válidas utilizando un algoritmo clásico (Hungarian algorithm).
+
+Por lo tanto, los resultados reparados deben interpretarse como híbridos (cuántico + clásico).
+
 20.2 Gráficas comparativas
 
 Finalmente, el notebook genera un conjunto de gráficas que resumen visualmente los resultados obtenidos.
